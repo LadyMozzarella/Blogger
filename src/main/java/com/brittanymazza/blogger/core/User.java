@@ -1,21 +1,23 @@
 package com.brittanymazza.blogger.core;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import org.hibernate.validator.constraints.Length;
 
 public class User {
     private long id;
 
-    @Length(max = 3)
-    private String content;
+    @Length(max = 100)
+    private String username;
+    
+    @Length(max = 100)
+    private String password;
 
-    public User() {
-        // Jackson deserialization
-    }
-
-    public User(long id, String content) {
+    public User(long id, String username, String password) {
         this.id = id;
-        this.content = content;
+        this.username = username;
+        this.password = password;
     }
 
     @JsonProperty
@@ -24,7 +26,12 @@ public class User {
     }
 
     @JsonProperty
-    public String getContent() {
-        return content;
+    public String getUsername() {
+        return username;
+    }
+    
+    @JsonIgnore
+    public String getPassword() {
+    	return password;
     }
 }

@@ -1,2 +1,7 @@
 template: Hello, %s!
 defaultName: Stranger
+database:
+  driverClass: org.h2.Driver
+  user: pguser
+  password: iAMs00perSecrEET
+  url: jdbc:h2:target/blogger

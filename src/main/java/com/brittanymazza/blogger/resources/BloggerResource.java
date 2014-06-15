@@ -28,6 +28,7 @@ public class BloggerResource {
     @Timed
     public User sayHello(@QueryParam("name") Optional<String> name) {
         final String value = String.format(template, name.or(defaultName));
-        return new User(counter.incrementAndGet(), value);
+        final String value2 = "Whaat";
+        return new User(counter.incrementAndGet(), value, value2);
     }
 }
