@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Implementation-Title: blogger
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.brittanymazza
+Build-Jdk: 1.7.0_60
+Built-By: brittanymazza
+Created-By: Maven Integration for Eclipse
+
