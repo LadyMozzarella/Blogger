@@ -15,7 +15,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.brittanymazza.blogger.core.Post;
 import com.brittanymazza.blogger.core.User;
+import com.brittanymazza.blogger.db.PostDAO;
 import com.brittanymazza.blogger.db.UserDAO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,10 +28,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class UserResource {
 	
 	private final UserDAO userDAO;
+	private final PostDAO postDAO;
 	private final AtomicInteger counter;
 	
-	public UserResource(UserDAO userDAO) {
+	public UserResource(UserDAO userDAO, PostDAO postDAO) {
 		this.userDAO = userDAO;
+		this.postDAO = postDAO;
 		this.counter = new AtomicInteger();
 	}
 	
@@ -50,7 +54,7 @@ public class UserResource {
 	
 	@GET @Path("/{id}")
 	@UnitOfWork
-	public String viewUser(@PathParam("id") Integer id) {
-		return userDAO.findNameById(id);
+	public List<Post> viewUser(@PathParam("id") Integer id) {
+		return postDAO.findPostsByUserId(id);
 	}
 }

@@ -4,6 +4,7 @@ import org.skife.jdbi.v2.DBI;
 
 import com.brittanymazza.blogger.db.*;
 import com.brittanymazza.blogger.resources.BloggerResource;
+import com.brittanymazza.blogger.resources.PostResource;
 import com.brittanymazza.blogger.resources.UserResource;
 
 import io.dropwizard.Application;
@@ -38,19 +39,18 @@ public class BloggerApplication extends Application<BloggerConfiguration> {
     @Override
     public void run(BloggerConfiguration configuration,
                     Environment environment) throws ClassNotFoundException {
-    	
-        final BloggerResource bloggerResource = new BloggerResource(
-            configuration.getTemplate(),
-            configuration.getDefaultName()
-        );
-        
-        environment.jersey().register(bloggerResource);
         
         final DBIFactory factory = new DBIFactory();
         final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "postgresql");
         final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
+        final PostDAO postDAO = jdbi.onDemand(PostDAO.class);
+        
         userDAO.createUsersTable();
-        environment.jersey().register(new UserResource(userDAO));
+        postDAO.createPostsTable();
+        
+        environment.jersey().register(new UserResource(userDAO, postDAO));
+        environment.jersey().register(new PostResource(postDAO));
+        environment.jersey().register(new BloggerResource(postDAO));
     }
 
 }
