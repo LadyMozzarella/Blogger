@@ -18,6 +18,6 @@ public interface CommentDAO {
   @SqlUpdate("insert into comments (id, content, user_id, post_id, timestamp) values (:id, :content, :user_id, :post_id, :timestamp)")
   void insert(@Bind("id") int id, @Bind("content") String content, @Bind("user_id") int user_id, @Bind("post_id") int post_id, @Bind("timestamp") Timestamp timestamp);
   
-  @SqlQuery("select * from comments where post_id = :post_id")
+  @SqlQuery("select * from comments where post_id = :post_id order by timestamp desc")
   List<Comment> findCommentsByPostId(@Bind("post_id") int post_id);
 }

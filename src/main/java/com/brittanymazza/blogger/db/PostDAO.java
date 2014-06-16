@@ -21,7 +21,7 @@ public interface PostDAO {
   @SqlQuery("select * from posts where user_id = :user_id")
   List<Post> findPostsByUserId(@Bind("user_id") int user_id);
   
-  @SqlQuery("select * from posts")
+  @SqlQuery("select * from posts order by timestamp desc")
   List<Post> findAll();
   
   @SqlQuery("select * from posts where id = :id")

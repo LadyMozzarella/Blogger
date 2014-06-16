@@ -23,6 +23,6 @@ public interface UserDAO {
   @SqlQuery("select * from users where username = :username")
   User findUserByUsername(@Bind("username") String username);
   
-  @SqlQuery("select * from users")
+  @SqlQuery("select * from users by timestamp desc")
   List<User> findAll();
 }
