@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Blogger by LadyMozzarella</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="without-description">
+        <h1>Blogger</h1>
+        <p></p>
+        <p class="view"><a href="https://github.com/LadyMozzarella/Blogger">View the Project on GitHub <small>LadyMozzarella/Blogger</small></a></p>
+        <ul>
+          <li><a href="https://github.com/LadyMozzarella/Blogger/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/LadyMozzarella/Blogger/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/LadyMozzarella/Blogger">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="blogger" class="anchor" href="#blogger"><span class="octicon octicon-link"></span></a>Blogger</h1>
+
+<h2>
+<a name="user-log-in" class="anchor" href="#user-log-in"><span class="octicon octicon-link"></span></a>User Log in</h2>
+
+<p>User data is extremely simple. Username and password isn't encrypted or salted or anything. I didn't get to attempting to implement sessions, so the user must enter username and password upon creating every post and comment.</p>
+
+<h2>
+<a name="pages" class="anchor" href="#pages"><span class="octicon octicon-link"></span></a>Pages</h2>
+
+<ul>
+<li>The index page shows the posts listed beginning with the most recent at the top.</li>
+<li>There's a create user page.</li>
+<li>Creating a post as well as a comment require username and password. (Currently breaks if the log in information isn't correct... as well as on the user creation page.)</li>
+<li>Creating comments is done on the individual post page.</li>
+</ul><h2>
+<a name="styling" class="anchor" href="#styling"><span class="octicon octicon-link"></span></a>Styling</h2>
+
+<p>The design is super bootstrap.</p>
+
+<h2>
+<a name="database" class="anchor" href="#database"><span class="octicon octicon-link"></span></a>Database</h2>
+
+<p>The database is H2 (SQL, in-memory)</p>
+
+<h2>
+<a name="commands-to-get-it-up-and-running" class="anchor" href="#commands-to-get-it-up-and-running"><span class="octicon octicon-link"></span></a>Commands to get it up and running</h2>
+
+<ul>
+<li><p>Clone this repository</p></li>
+<li><p>Run Maven</p></li>
+</ul><pre><code>mvn package
+</code></pre>
+
+<ul>
+<li>Setup H2 Database</li>
+</ul><pre><code>java -jar target/dBlogger-0.0.1-SNAPSHOT.jar db migrate Blogger.yml
+</code></pre>
+
+<ul>
+<li>Run Server</li>
+</ul><pre><code>java -jar target/Blogger-0.0.1-SNAPSHOT.jar server Blogger.yml
+</code></pre>
+
+<ul>
+<li>View at http://localhost:8080</li>
+</ul><h3>
+<a name="homepage" class="anchor" href="#homepage"><span class="octicon octicon-link"></span></a>Homepage</h3>
+
+<p><img src="https://i.imgur.com/H7EuvY8.png" alt="https://i.imgur.com/H7EuvY8.png"></p>
+
+<h3>
+<a name="user-sign-up" class="anchor" href="#user-sign-up"><span class="octicon octicon-link"></span></a>User Sign Up</h3>
+
+<p><img src="http://i.imgur.com/CVhVOvY.png" alt="http://i.imgur.com/CVhVOvY.png"></p>
+
+<h3>
+<a name="create-a-post" class="anchor" href="#create-a-post"><span class="octicon octicon-link"></span></a>Create a Post</h3>
+
+<p><img src="https://i.imgur.com/MtEvTZR.png" alt="https://i.imgur.com/MtEvTZR.png"></p>
+
+<h3>
+<a name="view-a-post-or-post-a-comment" class="anchor" href="#view-a-post-or-post-a-comment"><span class="octicon octicon-link"></span></a>View a Post, or Post a Comment</h3>
+
+<p><img src="https://i.imgur.com/1GU5Hry.png" alt="https://i.imgur.com/1GU5Hry.png"></p>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/LadyMozzarella">LadyMozzarella</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
