@@ -3,11 +3,10 @@ package com.brittanymazza.blogger.resources;
 import io.dropwizard.hibernate.UnitOfWork;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -19,12 +18,11 @@ import com.brittanymazza.blogger.core.Post;
 import com.brittanymazza.blogger.core.User;
 import com.brittanymazza.blogger.db.PostDAO;
 import com.brittanymazza.blogger.db.UserDAO;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.brittanymazza.blogger.views.CreatePostView;
+import com.brittanymazza.blogger.views.CreateUserView;
 
 @Path("/users")
-@Produces(MediaType.APPLICATION_JSON)
+@Produces(MediaType.TEXT_HTML)
 public class UserResource {
 	
 	private final UserDAO userDAO;
@@ -39,11 +37,15 @@ public class UserResource {
 	
 	@POST
 	@UnitOfWork
-	@Consumes(MediaType.APPLICATION_JSON)
-	public void createUser(String jsonString) throws IOException {
-		HashMap<String,Object> userHash;
-		userHash = new ObjectMapper().readValue(jsonString, new TypeReference<HashMap<String,Object>>() {});
-		userDAO.insert(counter.incrementAndGet(), userHash.get("username").toString(), userHash.get("password").toString());
+	public CreatePostView createUser(@FormParam("username") String username, @FormParam("password") String password) throws IOException {
+		userDAO.insert(counter.incrementAndGet(), username, password);
+		return new CreatePostView();
+	}	
+	
+	@GET @Path("/new")
+	@UnitOfWork
+	public CreateUserView newUser() {
+		return new CreateUserView();
 	}
 	
 	@GET

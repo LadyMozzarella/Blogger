@@ -32,8 +32,6 @@ public class BloggerApplication extends Application<BloggerConfiguration> {
 		bootstrap.addBundle(new ViewBundle());
     }
     
-    
-
     @Override
     public void run(BloggerConfiguration configuration,
                     Environment environment) throws ClassNotFoundException {
@@ -51,7 +49,7 @@ public class BloggerApplication extends Application<BloggerConfiguration> {
         environment.jersey().register(new UserResource(userDAO, postDAO));
         environment.jersey().register(new PostResource(postDAO, userDAO, commentDAO));
         environment.jersey().register(new BloggerResource(postDAO));
-        environment.jersey().register(new CommentResource(commentDAO));
+        environment.jersey().register(new CommentResource());
     }
 
 }
