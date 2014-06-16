@@ -17,26 +17,36 @@ The design is super bootstrap.
 The database is H2 (SQL, in-memory)
 
 ##Commands to get it up and running
-1. Clone this repository
++ Clone this repository
 
-2. Run Maven
++ Run Maven
 ```
 mvn package
 ```
 
-3. Setup H2 Database
++ Setup H2 Database
 ```
 java -jar target/dBlogger-0.0.1-SNAPSHOT.jar db migrate Blogger.yml
 ```
 
-4. Run Server
++ Run Server
 ```
 java -jar target/Blogger-0.0.1-SNAPSHOT.jar server Blogger.yml
 ```
 
-5. View at http://localhost:8080
++ View at http://localhost:8080
 
+
+###Homepage
 ![https://i.imgur.com/H7EuvY8.png](https://i.imgur.com/H7EuvY8.png)
+
+###User Sign Up
 ![http://i.imgur.com/CVhVOvY.png](http://i.imgur.com/CVhVOvY.png)
+
+###Create a Post
 ![https://i.imgur.com/MtEvTZR.png](https://i.imgur.com/MtEvTZR.png)
+
+###View a Post, or Post a Comment
 ![https://i.imgur.com/1GU5Hry.png](https://i.imgur.com/1GU5Hry.png)
+
+
