@@ -23,11 +23,7 @@ The database is H2 (SQL, in-memory)
 ```
 mvn package
 ```
-
-+ Setup H2 Database
-```
-java -jar target/dBlogger-0.0.1-SNAPSHOT.jar db migrate Blogger.yml
-```
+(or mvn clean install)
 
 + Run Server
 ```
