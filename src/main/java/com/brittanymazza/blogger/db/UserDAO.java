@@ -20,6 +20,9 @@ public interface UserDAO {
   @SqlQuery("select * from users where id = :id")
   User findUserById(@Bind("id") int id);
   
+  @SqlQuery("select * from users where username = :username")
+  User findUserByUsername(@Bind("username") String username);
+  
   @SqlQuery("select * from users")
   List<User> findAll();
 }

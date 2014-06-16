@@ -33,6 +33,24 @@
 	    	nav {
 	    		margin-bottom: 30px;
 	    	}
+	    	
+	    	.comment-entry {
+	    		padding-top: 10px;
+	    	}
+	    	
+	    	.textarea {
+	    		padding-top: 5px;
+	    		display: block;
+	    	}
+	    	
+	    	.comment-entry label {
+	    		display: block;
+	    		color: green;
+	    	}
+	    	
+	    	.alert {
+	    		padding-top: 10px;
+	    	}
 	    </style>
 	
 	    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -67,7 +85,34 @@
 		</div>
 	
 		<div class="comments">
-			<a href="/posts/{{post.id}}/comments/new" class="btn btn-info footer-link" role="button">Comment</a>
+		
+			<div class="create-comment">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">Create a Post</h3>
+				</div>
+				<div class="panel-body">
+					<form action="/posts/{{post.id}}/comments" method="post">
+						<div class="login-info">
+							<div class="alert alert-success">
+								You must enter in your correct username and password here in order to make a comment. If you haven't created an account, please do so before creating a comment.
+							</div>
+							
+							<label for="username">Username:</label>
+							<input id="username" name="username" type="text" class="username">
+							<label for="password">Password:</label>
+							<input id="password" name="password" type="text" class="password">
+						</div>
+						<div class="comment-entry">
+							<div class="textarea">
+								<label for="content">Content:</label>
+								<textarea id="content" name="content" type="text" class="content"></textarea>
+							</div>
+							<input type="submit" value="Submit" class="btn btn-info footer-link">
+						</div>
+					</form>
+				</div>
+			</div>
 		
 			{{#comments}}
 				<div class="panel panel-default">

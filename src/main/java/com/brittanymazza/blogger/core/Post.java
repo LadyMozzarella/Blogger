@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
 public class Post {
-    private long id;
+    private int id;
     private long user_id;
     private Timestamp timestamp;
 
@@ -17,7 +17,7 @@ public class Post {
     private String content;
     
 
-    public Post(long id, String title, String content, long user_id, Timestamp timestamp) {
+    public Post(int id, String title, String content, long user_id, Timestamp timestamp) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -26,7 +26,7 @@ public class Post {
     }
 
     @JsonProperty
-    public long getId() {
+    public int getId() {
         return id;
     }
 

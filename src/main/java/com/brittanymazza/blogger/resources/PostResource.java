@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -19,10 +20,11 @@ import javax.ws.rs.core.MediaType;
 import com.brittanymazza.blogger.db.CommentDAO;
 import com.brittanymazza.blogger.db.PostDAO;
 import com.brittanymazza.blogger.db.UserDAO;
+import com.brittanymazza.blogger.views.CreatePostView;
 import com.brittanymazza.blogger.views.PostView;
+import com.brittanymazza.blogger.views.PostsView;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 
 @Path("/posts")
 @Produces(MediaType.TEXT_HTML)
@@ -42,17 +44,17 @@ public class PostResource {
 	
 	@POST
 	@UnitOfWork
-	@Consumes(MediaType.APPLICATION_JSON)
-	public void createPost(String jsonString) throws IOException {
-		HashMap<String,Object> postHash;
-		postHash = new ObjectMapper().readValue(jsonString, new TypeReference<HashMap<String,Object>>() {});
-		postDAO.insert(counter.incrementAndGet(), postHash.get("title").toString(), postHash.get("content").toString(), Integer.parseInt(postHash.get("user_id").toString()), new Timestamp(new Date().getTime()));
+	public PostsView createPost(@FormParam("username") String username, @FormParam("password") String password, @FormParam("title") String title, @FormParam("content") String content ) throws IOException {
+		if( userDAO.findUserByUsername(username).getPassword().equals(password) ) {
+			postDAO.insert(counter.incrementAndGet(), title, content, userDAO.findUserByUsername(username).getId(), new Timestamp(new Date().getTime()));
+		}
+		return new PostsView(postDAO.findAll());
 	}
 	
 	@GET @Path("/new")
 	@UnitOfWork
-	public int createPost() {
-		return 3;
+	public CreatePostView createPost() {
+		return new CreatePostView();
 	}
 	
 	@GET @Path("/{id}")
@@ -65,5 +67,14 @@ public class PostResource {
 	@UnitOfWork
 	public int createComment() {
 		return 3;
+	}
+	
+	@POST @Path("/{id}/comments")
+	@UnitOfWork
+	public PostView createComment(@PathParam("id") Integer id, @FormParam("username") String username, @FormParam("password") String password, @FormParam("content") String content ) throws IOException {
+		if( userDAO.findUserByUsername(username).getPassword().equals(password) ) {
+			commentDAO.insert(counter.incrementAndGet(), content, userDAO.findUserByUsername(username).getId(), id, new Timestamp(new Date().getTime()));
+		}
+		return new PostView(postDAO.findPostById(id), userDAO.findUserById( postDAO.findUserIdByPost(id) ), commentDAO.findCommentsByPostId(id) );
 	}
 }

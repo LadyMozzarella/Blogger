@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
 public class User {
-    private long id;
+    private int id;
 
     @Length(max = 100)
     private String username;
@@ -14,14 +14,14 @@ public class User {
     @Length(max = 100)
     private String password;
 
-    public User(long id, String username, String password) {
+    public User(int id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;
     }
 
     @JsonProperty
-    public long getId() {
+    public int getId() {
         return id;
     }
 
