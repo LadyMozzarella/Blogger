@@ -40,7 +40,6 @@ public class PostResource {
 	public void createPost(String jsonString) throws IOException {
 		HashMap<String,Object> postHash;
 		postHash = new ObjectMapper().readValue(jsonString, new TypeReference<HashMap<String,Object>>() {});
-		System.out.println(postHash.get("user_id"));
 		postDAO.insert(counter.incrementAndGet(), postHash.get("title").toString(), postHash.get("content").toString(), Integer.parseInt(postHash.get("user_id").toString()), new Timestamp(new Date().getTime()));
 	}
 	
