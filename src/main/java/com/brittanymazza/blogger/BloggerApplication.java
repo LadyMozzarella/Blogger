@@ -14,6 +14,7 @@ import io.dropwizard.jdbi.DBIFactory;
 import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.dropwizard.views.ViewBundle;
 
 public class BloggerApplication extends Application<BloggerConfiguration> {
     public static void main(String[] args) throws Exception {
@@ -22,13 +23,16 @@ public class BloggerApplication extends Application<BloggerConfiguration> {
 
     @Override
     public void initialize(Bootstrap<BloggerConfiguration> bootstrap) {
-    	 bootstrap.addBundle(new MigrationsBundle<BloggerConfiguration>() {
+    	bootstrap.addBundle(new MigrationsBundle<BloggerConfiguration>() {
 	        @Override
             public DataSourceFactory getDataSourceFactory(BloggerConfiguration configuration) {
                 return configuration.getDataSourceFactory();
             }
 	    });
+		bootstrap.addBundle(new ViewBundle());
     }
+    
+    
 
     @Override
     public void run(BloggerConfiguration configuration,
@@ -45,7 +49,7 @@ public class BloggerApplication extends Application<BloggerConfiguration> {
         commentDAO.createCommentsTable();
         
         environment.jersey().register(new UserResource(userDAO, postDAO));
-        environment.jersey().register(new PostResource(postDAO));
+        environment.jersey().register(new PostResource(postDAO, userDAO, commentDAO));
         environment.jersey().register(new BloggerResource(postDAO));
         environment.jersey().register(new CommentResource(commentDAO));
     }

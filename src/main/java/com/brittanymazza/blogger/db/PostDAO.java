@@ -26,6 +26,9 @@ public interface PostDAO {
   
   @SqlQuery("select * from posts where id = :id")
   Post findPostById(@Bind("id") int id);
+  
+  @SqlQuery("select user_id from posts where id = :id")
+  int findUserIdByPost(@Bind("id") int id);
 }
 
 

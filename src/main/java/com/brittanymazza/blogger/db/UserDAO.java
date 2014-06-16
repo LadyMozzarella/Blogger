@@ -17,8 +17,8 @@ public interface UserDAO {
   @SqlUpdate("insert into users (id, username, password) values (:id, :username, :password)")
   void insert(@Bind("id") int id, @Bind("username") String username, @Bind("password") String password);
 
-  @SqlQuery("select username from users where id = :id")
-  String findNameById(@Bind("id") int id);
+  @SqlQuery("select * from users where id = :id")
+  User findUserById(@Bind("id") int id);
   
   @SqlQuery("select * from users")
   List<User> findAll();

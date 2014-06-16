@@ -16,21 +16,27 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.brittanymazza.blogger.core.Post;
+import com.brittanymazza.blogger.db.CommentDAO;
 import com.brittanymazza.blogger.db.PostDAO;
+import com.brittanymazza.blogger.db.UserDAO;
+import com.brittanymazza.blogger.views.PostView;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @Path("/posts")
-@Produces(MediaType.APPLICATION_JSON)
+@Produces(MediaType.TEXT_HTML)
 public class PostResource {
 	
+	private final UserDAO userDAO;
 	private final PostDAO postDAO;
+	private final CommentDAO commentDAO;
 	private final AtomicInteger counter;
 	
-	public PostResource(PostDAO postDAO) {
+	public PostResource(PostDAO postDAO, UserDAO userDAO, CommentDAO commentDAO) {
 		this.postDAO = postDAO;
+		this.userDAO = userDAO;
+		this.commentDAO = commentDAO;
 		this.counter = new AtomicInteger();
 	}
 	
@@ -51,7 +57,13 @@ public class PostResource {
 	
 	@GET @Path("/{id}")
 	@UnitOfWork
-	public Post viewPost(@PathParam("id") Integer id) {
-		return postDAO.findPostById(id);
+	public PostView viewPost(@PathParam("id") Integer id) {
+		return new PostView(postDAO.findPostById(id), userDAO.findUserById( postDAO.findUserIdByPost(id) ), commentDAO.findCommentsByPostId(id) );
+	}
+	
+	@GET @Path("/{id}/comments/new")
+	@UnitOfWork
+	public int createComment() {
+		return 3;
 	}
 }

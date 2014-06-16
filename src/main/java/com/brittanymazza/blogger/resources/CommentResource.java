@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -39,11 +38,5 @@ public class CommentResource {
 		HashMap<String,Object> commentHash;
 		commentHash = new ObjectMapper().readValue(jsonString, new TypeReference<HashMap<String,Object>>() {});
 		commentDAO.insert(counter.incrementAndGet(), commentHash.get("content").toString(), Integer.parseInt(commentHash.get("user_id").toString()), Integer.parseInt(commentHash.get("post_id").toString()), new Timestamp(new Date().getTime()));
-	}
-	
-	@GET @Path("/new")
-	@UnitOfWork
-	public int createPost() {
-		return 3;
 	}
 }
