@@ -37,7 +37,7 @@ public class BloggerApplication extends Application<BloggerConfiguration> {
                     Environment environment) throws ClassNotFoundException {
         
         final DBIFactory factory = new DBIFactory();
-        final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "postgresql");
+        final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "db");
         final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
         final PostDAO postDAO = jdbi.onDemand(PostDAO.class);
         final CommentDAO commentDAO = jdbi.onDemand(CommentDAO.class);
