@@ -15,7 +15,6 @@ public class Post {
     private String title;
     
     private String content;
-    
 
     public Post(int id, String title, String content, long user_id, Timestamp timestamp) {
         this.id = id;

@@ -17,7 +17,6 @@ public class Comment {
     
     private String content;
     
-
     public Comment(long id, String content, long user_id, long post_id, Timestamp timestamp) {
         this.id = id;
         this.content = content;

@@ -44,7 +44,7 @@ public class PostResource {
 		if( userDAO.findUserByUsername(username).getPassword().equals(password) ) {
 			postDAO.insert(counter.incrementAndGet(), title, content, userDAO.findUserByUsername(username).getId(), new Timestamp(new Date().getTime()));	
 		}
-			return new PostsView(postDAO.findAll());	
+		return new PostsView(postDAO.findAll());	
 	}
 	
 	@GET @Path("/new")
