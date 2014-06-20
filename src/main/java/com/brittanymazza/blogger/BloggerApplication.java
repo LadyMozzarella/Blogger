@@ -4,7 +4,6 @@ import org.skife.jdbi.v2.DBI;
 
 import com.brittanymazza.blogger.db.*;
 import com.brittanymazza.blogger.resources.BloggerResource;
-import com.brittanymazza.blogger.resources.CommentResource;
 import com.brittanymazza.blogger.resources.PostResource;
 import com.brittanymazza.blogger.resources.UserResource;
 
@@ -40,7 +39,6 @@ public class BloggerApplication extends Application<BloggerConfiguration> {
         environment.jersey().register(new UserResource(userDAO, postDAO));
         environment.jersey().register(new PostResource(postDAO, userDAO, commentDAO));
         environment.jersey().register(new BloggerResource(postDAO));
-        environment.jersey().register(new CommentResource());
     }
 
 }
