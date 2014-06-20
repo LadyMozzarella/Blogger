@@ -9,9 +9,7 @@ import com.brittanymazza.blogger.resources.PostResource;
 import com.brittanymazza.blogger.resources.UserResource;
 
 import io.dropwizard.Application;
-import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.jdbi.DBIFactory;
-import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
@@ -23,19 +21,12 @@ public class BloggerApplication extends Application<BloggerConfiguration> {
 
     @Override
     public void initialize(Bootstrap<BloggerConfiguration> bootstrap) {
-    	bootstrap.addBundle(new MigrationsBundle<BloggerConfiguration>() {
-	        @Override
-            public DataSourceFactory getDataSourceFactory(BloggerConfiguration configuration) {
-                return configuration.getDataSourceFactory();
-            }
-	    });
 		bootstrap.addBundle(new ViewBundle());
     }
     
     @Override
     public void run(BloggerConfiguration configuration,
                     Environment environment) throws ClassNotFoundException {
-        
         final DBIFactory factory = new DBIFactory();
         final DBI jdbi = factory.build(environment, configuration.getDataSourceFactory(), "db");
         final UserDAO userDAO = jdbi.onDemand(UserDAO.class);
